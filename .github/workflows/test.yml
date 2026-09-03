@@ -1,0 +1,20 @@
+name: CI Pipeline
+on:
+  - push
+  - pull_request
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '16'
+      - name: Install dependencies
+        run: npm install
+      - name: Lint and test
+        run: npm run lint && npm run test
+      - name: Display test result
+        run: echo "Lint and test passed" || echo "Passed"
